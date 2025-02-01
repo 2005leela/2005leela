@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat with AI</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: url('https://www.w3schools.com/w3images/flowers.jpg') no-repeat center center fixed;
+            background-size: cover;
+            font-family: Arial, sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            color: white;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #FF6347;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .search-bar {
+            width: 80%;
+            padding: 15px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            outline: none;
+            margin-bottom: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            color: black;
+            transition: 0.3s;
+        }
+
+        .search-bar:focus {
+            background-color: #fff;
+            box-shadow: 0 0 5px 2px rgba(255, 99, 71, 0.8);
+        }
+
+        .send-btn {
+            padding: 10px 20px;
+            background-color: #FF6347;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            margin-left: 10px;
+        }
+
+        .send-btn:hover {
+            background-color: #FF4500;
+        }
+
+        .response-box {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 15px;
+            border-radius: 5px;
+            font-size: 18px;
+            color: black;
+            width: 80%;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        /* Man-shaped Cursor */
+        body {
+            cursor: url('https://www.svgrepo.com/show/393051/man-silhouette.svg'), auto;
+        }
+
+        /* Cursor color change */
+        .search-bar::selection {
+            background-color: #FF6347;
+            color: white;
+        }
+
+    </style>
+</head>
+<body>
+
+    <h1>Chat with AI</h1>
+    <div class="container">
+        <!-- Search Bar -->
+        <input type="text" id="searchBar" class="search-bar" placeholder="Type your message here..." />
+
+        <!-- Send Button -->
+        <button id="sendBtn" class="send-btn">Send</button>
+
+        <!-- Response Box -->
+        <div id="responseBox" class="response-box" style="display: none;"></div>
+    </div>
+
+    <script>
+        // Get HTML Elements
+        const searchBar = document.getElementById("searchBar");
+        const sendBtn = document.getElementById("sendBtn");
+        const responseBox = document.getElementById("responseBox");
+
+        // Function to handle sending message
+        function sendMessage() {
+            const message = searchBar.value.trim().toLowerCase();
+
+            if (message === "") return; // Don't send empty message
+
+            let response = "";
+            if (message === "hi") {
+                response = "Hi, how are you?";
+            } else if (message === "fine") {
+                response = "I am good!";
+            } else {
+                response = "I don't understand that message.";
+            }
+
+            // Display the response
+            responseBox.style.display = "block";
+            responseBox.innerHTML = `<strong>AI says:</strong> ${response}`;
+
+            // Clear the search bar after sending
+            searchBar.value = "";
+        }
+
+        // Event listener for the send button
+        sendBtn.addEventListener("click", sendMessage);
+
+        // Event listener for the Enter key
+        searchBar.addEventListener("keypress", function (e) {
+            if (e.key === "Enter") {
+                sendMessage();
+            }
+        });
+
+        // Colorful cursor effect for each letter
+        searchBar.addEventListener("input", function () {
+            const letters = searchBar.value.split("");
+            let colorIndex = 0;
+
+            // Change cursor color for each letter
+            searchBar.style.caretColor = getRandomColor(); // Random color for the caret
+        });
+
+        // Function to generate random color
+        function getRandomColor() {
+            const letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+    </script>
+
+</body>
+</html>
